@@ -50,7 +50,40 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
 ## Setup de configuração
-https://www.notion.so/pedroneri/my-finaces-app-9680cd899614405fa34a3fc0eeda4ee1
+
+# Setup do projeto
+
+Instalação Passo a passo do yarn
+
+- [ ]  Instalar node
+- [ ]  npm install -g yarn
+- [ ]  npm install -g create-react-app
+- [ ]  Ir para o diretório de onde se deseja criar a aplicacao e gerar o comando create-react-app <nomeAplicacao>
+- [ ]  Instalando as dependencias do Bootswatch
+    - [ ]  yarn add bootswatch
+- [ ]  Instalando Rotas
+    - [ ]  yarn add react-router-dom
+- [ ]  instalando mensagens personalizadas
+    - [ ]  yarn add toastr
+
+    [toastr](https://codeseven.github.io/toastr/demo.html)
+
+- [ ]  Instalando currency formmater(Formatador de Moedas)
+    - [ ]  yarn add currency-formatter
+
+# Link com server-side e client-side
+
+[axios/axios](https://github.com/axios/axios)
+
+Utilizando Axios→Promise based HTTP client
+
+[PrimeReact | React UI Component Library](https://www.primefaces.org/primereact/)
+
+Switch de componentes
+
+- [ ]  yarn add primereact primeicons classnames react-transition-group
+
+###-------------------------------------------------------------------------------------------------------------------------------
 
 ### Analyzing the Bundle Size
 
