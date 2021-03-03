@@ -3,6 +3,8 @@ import Card from '../Components/card';
 import FormGroup from '../Components/form-group';
 import { withRouter } from 'react-router-dom';
 
+import { AuthContext } from '../Main/provedorAutenticacao'
+
 
 import axios from 'axios'
 import UsuarioService from '../app/service/usuarioService';
@@ -26,7 +28,8 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then(response => {
-            LocalStorageService.adicinoarItem('_usuario_logado', response.data);
+            // LocalStorageService.adicinoarItem('_usuario_logado', response.data);
+            this.context.iniciarSessao(response.data);
             this.props.history.push('home')
         }).catch(erro => {
             mensagemErro(erro.response.data)
@@ -61,8 +64,8 @@ class Login extends React.Component {
                                                     id="exampleInputPassword1" onChange={(e) => this.setState({ senha: e.target.value })}
                                                     placeholder="Password"></input>
                                             </FormGroup>
-                                            <button onClick={this.entrar} type="button" className="btn btn-success">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} type="button" className="btn btn-danger">Cadastrar</button>
+                                            <button onClick={this.entrar} type="button" className="btn btn-success"><i className="pi pi-sign-in"></i> Entrar</button>
+                                            <button onClick={this.prepareCadastrar} type="button" className="btn btn-danger"><i className="pi pi-user"></i> Cadastrar</button>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -75,5 +78,6 @@ class Login extends React.Component {
     }
 }
 
+Login.contextType = AuthContext;
 
 export default withRouter(Login);//Decorator para poder navegar para outros componentes

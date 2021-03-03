@@ -1,11 +1,18 @@
 import React from 'react';
 import ApiService from '../apiservice'
 
+import ErroValidacao from '../exception/ErroValidacao'
+
 export default class LancamentoService extends ApiService {
 
 
     constructor() {
         super('/api/lancamentos')
+    }
+
+
+    atualizar(lancamento) {
+        return this.put(`/${lancamento.id}`, lancamento);
     }
 
 
@@ -37,6 +44,50 @@ export default class LancamentoService extends ApiService {
             { label: 'Despesa', value: 'DESPESA' },
             { label: 'Receita', value: 'RECEITA' },
         ]
+    }
+
+    // Referencia API REST LancamentoResource o método obterLancamento do tipo GET passando id no paramentro
+    obterPorId(id) {
+        return this.get(`/${id}`)
+    }
+
+
+    alterarStatus(id, status) {
+        const lancamentoDTO = { status: status };
+        return this.put(`/${id}/updateStatus`, lancamentoDTO);
+    }
+
+    validar(lancamento) {
+
+
+        const erros = [];
+
+        if (!lancamento.ano) {
+            erros.push("Informe o Ano")
+        }
+        if (!lancamento.mes) {
+            erros.push("Informe o Mês")
+        }
+        if (!lancamento.tipo) {
+            erros.push("Informe o Tipo")
+        }
+        if (!lancamento.descricao) {
+            erros.push("Informe Descrição")
+        }
+        if (!lancamento.valor) {
+            erros.push("Informe Valor")
+        }
+
+        if (erros && erros.length > 0) {
+            throw new ErroValidacao(erros)
+        }
+
+    }
+
+    salvar = (lancamento) => {
+
+        return this.post('/', lancamento);
+
     }
 
     consultar(lancamentoFiltro) {

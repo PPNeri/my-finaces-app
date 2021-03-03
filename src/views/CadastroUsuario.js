@@ -19,49 +19,24 @@ class CadastroUsuario extends Component {
         this.service = new UsuarioService();
     }
 
-    validar() {
-
-        const msgs = []
-        if (!this.state.nome) {
-            msgs.push('Nome obrigatorio.')
-        }
-        if (!this.state.email) {
-            msgs.push('Email obrigatorio.');
-
-        }
-        else if (!this.state.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]'/)) {
-            msgs.push('Informe um Email válido');
-
-        }
-
-
-        if (!this.state.senha || !this.state.senhaRepeticao) {
-            msgs.push('Preencha a confirmação da senha')
-        } else if (this.state.senha !== this.state.senhaRepeticao) {
-            msgs.push('As senhas não conferem.')
-        }
-
-        return msgs;
-
-    }
 
     cadastrar = () => {
 
-        const msgs = this.validar();
+        const { nome, email, senha, senhaRepeticao } = this.state
 
-        if (msgs && msgs.length > 0) {
+        const usuario = { nome, email, senha, senhaRepeticao }
 
-            msgs.forEach((msg, index) => {
-                mensagemErro(msg)
+        try {
+            this.service.validar(usuario);
+
+        } catch (erro) {
+
+            const msgs = erro.mensagens;
+            msgs.forEach(element => {
+                mensagemErro(element);
             });
             return false;
 
-        }
-
-        const usuario = {
-            nome: this.state.nome,
-            email: this.state.email,
-            senha: this.state.senha
         }
 
         this.service.salvar(usuario)
@@ -111,8 +86,12 @@ class CadastroUsuario extends Component {
                                     name="senha"
                                     onChange={e => this.setState({ senhaRepeticao: e.target.value })} />
                             </FormGroup>
-                            <button type="button" onClick={this.cadastrar} className="btn btn-success">Salvar</button>
-                            <button type="button" onClick={this.cancelar} className="btn btn-danger">Cancelar</button>
+                            <button type="button" onClick={this.cadastrar} className="btn btn-success">
+                                <i className="pi pi-save" /> Salvar
+                            </button>
+                            <button type="button" onClick={this.cancelar} className="btn btn-danger">
+                                <i className="pi pi-times" /> Cancelar
+                            </button>
                         </div>
                     </div>
                 </div>
